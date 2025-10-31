@@ -1,8 +1,8 @@
-﻿namespace Echqrs.Tests
+namespace Echqrs.Tests
 {
     public class CreateUserCommand : ICommand
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 
     public class CreateUserHandler : ICommandHandler<CreateUserCommand>

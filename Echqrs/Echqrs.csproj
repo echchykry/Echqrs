@@ -2,8 +2,33 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+
+    <!-- Project Settings -->
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1591</NoWarn>
+
+    <!-- Package Metadata -->
+    <Company>EchQRS</Company>
+    <Authors>Houssam Echchykry</Authors>
+    <Description>Lightweight CQRS library for .NET with automatic handler registration and DI support.</Description>
+    <RepositoryUrl>https://github.com/echchykry/Echqrs</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/echchykry/Echqrs</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>CQRS;Mediator;Command;Query;DependencyInjection;Dotnet;Library</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+    <!-- Versioning and Packaging -->
+    <Version>1.0.1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+    <!-- Optional: show in Visual Studio -->
+    <AssemblyTitle>EchQRS</AssemblyTitle>
+    <Product>EchQRS</Product>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +37,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Echqrs.Abstraction\Echqrs.Abstraction.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="" />
+    <None Include="LICENSE.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>
