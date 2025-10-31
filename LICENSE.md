@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2025 Houssam Chykry
+Copyright (c) 2025 Houssam Echchykry
 
 Permission is granted to use, copy, modify, and distribute this software
 for any purpose, provided that the above copyright notice and this

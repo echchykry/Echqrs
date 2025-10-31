@@ -19,31 +19,34 @@ It helps you separate **commands** (write logic) and **queries** (read logic) in
 
 ```bash
 dotnet add package EchQRS
+```
 In your Program.cs:
-
-csharp
+```csharp
 
 services.AddEchqrs();
+```
 🧩 Core Interfaces
 Commands
 Represent write operations that change state.
 
-csharp
+```csharp
 
 public interface ICommand { }
 public interface ICommand<TResult> : ICommand { }
+```
 Example:
 
-csharp
+```csharp
 
 public class CreateUserCommand : ICommand<Guid>
 {
     public string Name { get; set; } = string.Empty;
 }
+```
 Command Handlers
 Contain business logic for executing commands.
 
-csharp
+```csharp
 
 public interface ICommandHandler<in TCommand>
 {
@@ -54,9 +57,10 @@ public interface ICommandHandler<in TCommand, TResult>
 {
     Task<TResult> HandleAsync(TCommand command);
 }
+```
 Example:
 
-csharp
+```csharp
 
 public class CreateUserHandler : ICommandHandler<CreateUserCommand, Guid>
 {
@@ -67,33 +71,37 @@ public class CreateUserHandler : ICommandHandler<CreateUserCommand, Guid>
         return Task.FromResult(id);
     }
 }
+```
 Queries
 Represent read-only operations that fetch data.
 
-csharp
+```csharp
 
 public interface IQuery { }
 public interface IQuery<TResult> : IQuery { }
+```
 Example:
 
-csharp
+```csharp
 
 public class GetUserByIdQuery : IQuery<UserDto>
 {
     public Guid Id { get; set; }
 }
+```
 Query Handlers
 Handle queries and return data.
 
-csharp
+```csharp
 
 public interface IQueryHandler<in TQuery, TResult>
 {
     Task<TResult> HandleAsync(TQuery query);
 }
+```
 Example:
 
-csharp
+```csharp
 
 public class GetUserByIdHandler : IQueryHandler<GetUserByIdQuery, UserDto>
 {
@@ -102,30 +110,34 @@ public class GetUserByIdHandler : IQueryHandler<GetUserByIdQuery, UserDto>
         return Task.FromResult(new UserDto(query.Id, "Houssam"));
     }
 }
+```
 Executers
 CommandExecuter
 
-csharp
+```csharp
 
 public interface ICommandExecuter
 {
     Task ExecuteAsync<TCommand>(TCommand command);
     Task<TResult> ExecuteWithResultAsync<TResult>(ICommand<TResult> command);
 }
+```
 QueryExecuter
 
-csharp
+```csharp
 
 public interface IQueryExecuter
 {
     Task<TResult> QueryAsync<TResult>(IQuery<TResult> query);
 }
+```
 Usage:
 
-csharp
+```csharp
 
 await _commandExecuter.ExecuteAsync(new DeleteUserCommand { Id = id });
 var user = await _queryExecuter.QueryAsync(new GetUserByIdQuery { Id = id });
+```
 🧠 How It Works
 When you call services.AddEchqrs(), the library:
 
@@ -138,7 +150,7 @@ Registers CommandExecuter and QueryExecuter as singletons.
 Uses IServiceScopeFactory to resolve handlers safely per execution.
 
 🧪 Example Test
-csharp
+```csharp
 
 [Fact]
 public async Task ExecuteAsync_Should_Invoke_Handler()
@@ -154,3 +166,4 @@ public async Task ExecuteAsync_Should_Invoke_Handler()
 
     Assert.NotEqual(Guid.Empty, result);
 }
+```
